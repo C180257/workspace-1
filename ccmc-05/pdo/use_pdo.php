@@ -16,6 +16,18 @@ try {
 	$pdo = new PDO($dsn, $user, $password, $options);
 	$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
+	/*
+	【PDO例外での表示】
+		・DNSに誤りがある場合
+    SQLSTATE[HY000] [1044] Access denied for user 'reviewdb_admin'@'localhost' to database 'reviewd'
+
+		・ユーザー認証に問題がある（ユーザIDまたはパスワードに誤りがある）場合
+    SQLSTATE[HY000] [1045] Access denied for user 'reviewdb_admi'@'localhost' (using password: YES)
+
+		・データベース自体に問題がある（データベースが停止しているなど）場合：「sudo service mysql stop」してから確認する。確認後は「sudo service mysql start」で起動しておくこと！
+    SQLSTATE[HY000] [2002] No such file or directory
+
+	*/
 	echo $e->getMessage();
 }
 ?>
